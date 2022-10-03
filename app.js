@@ -8,7 +8,31 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+// Database config
 mongoose.connect("mongodb://localhost:27017/tasksDB");
+const taskSchema = new mongoose.Schema ({
+    name: String,
+    description: String,
+    dueDate: String
+});
+
+// Task model will be added to the tasks collection, and is based off the taskSchema
+const Task = mongoose.model("Task", taskSchema);
+
+const task = new Task({
+    name: "Test task",
+    description: "test task description for mongodb",
+    dueDate: 'today'
+});
+
+// task.save(); // saves the task to the 'Tasks' collection in the tasksDB
+// Task.insertMany([list of tasks], (error) => {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log("Successfully added task to tasksDB");
+//     }
+// });
 
 // Declare variables
 const port = 3000;
