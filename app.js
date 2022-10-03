@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const date = require(`${__dirname}/date.js`); // get the module date.js
+const mongoose = require('mongoose');
 
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+
+mongoose.connect("mongodb://localhost:27017/tasksDB");
 
 // Declare variables
 const port = 3000;
