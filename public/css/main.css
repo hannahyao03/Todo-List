@@ -1,0 +1,110 @@
+html {
+    background-image: url(/media/todo-list-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: "Work Sans", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 30px auto;
+    margin-top: 50px;
+    letter-spacing: 1px;
+    font-weight: 200;
+}
+
+
+#heading {
+    /* background-color: #a683e3; */
+    text-align: center;
+}
+
+.wrapper {
+    max-width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+.task {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.task p {
+    text-align: left;
+}
+
+.task:last-child {
+    border-bottom: 0;
+}
+
+input:checked + p {
+    text-decoration: line-through;
+    text-decoration-color: black;
+}
+
+input[type="checkbox"] {
+    margin: 20px;
+}
+
+p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 200;
+    color: #00204a;
+}
+
+form {
+    text-align: center;
+    margin: 10px auto;
+}
+
+button {
+    min-height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border-width: 0;
+    background-color: #CADEED;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    text-align: center;
+    height: 60px;
+    top: 10px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 200;
+    width: 313px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: inset 0 -3px 0 0 #CADEED;
+}
+
+::placeholder {
+    color: grey;
+    font-weight: 200;
+    opacity: 1;
+}
+
+footer {
+    color: white;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
