@@ -11,9 +11,12 @@ app.use(express.static("public"));
 // Database config
 mongoose.connect("mongodb://localhost:27017/tasksDB");
 const taskSchema = new mongoose.Schema ({
-    name: String,
+    name: {
+        type: String,
+        required: [true, "A task must have a name"]
+    },
     description: String,
-    dueDate: String
+    dueDate: Date
 });
 
 // Task model will be added to the tasks collection, and is based off the taskSchema
@@ -33,6 +36,8 @@ const task = new Task({
 //         console.log("Successfully added task to tasksDB");
 //     }
 // });
+
+
 
 // Declare variables
 const port = 3000;
