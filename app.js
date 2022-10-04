@@ -44,7 +44,6 @@ app.get('/', (req, res) => {
 
 });
 
-
 // Runs when a new task is added to the main page through the submit button('/')
 app.post("/", (req, res) => {
     const taskName = req.body.newTask;
@@ -78,15 +77,14 @@ app.get("/:customListName", (req, res) => {
                 res.render("list", {listName: result.name, newTasks: result.tasks});
             }
         }
-    })
-    
-})
+    });
+});
 
 app.post('/delete', (req, res) => {
     const taskToDelete = req.body.delete;
     const listName = req.body.listName;
 
-    if (listName = date.getDate()) {
+    if (listName == date.getDate()) {
         Task.findByIdAndDelete(taskToDelete, (error, deleteResult) => {
             if (error) {
                 console.log(error);
@@ -97,9 +95,17 @@ app.post('/delete', (req, res) => {
 
         res.redirect('/'); // Redirects to the home page to update display    
     } else {
-        console.log("Hi");
-    }
-    
+        // Delete tasks from custom list  
+        List.findOneAndUpdate(
+            {name: listName},
+            {$pull: {tasks: {_id: taskToDelete}}},
+            (error, result) => {
+                if (!error) {
+                    res.redirect(`/${listName}`);
+                }
+            }
+        );
+    } 
 });
 
 app.post("/:customListName", (req, res) => {
