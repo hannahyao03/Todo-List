@@ -49,6 +49,16 @@ h1 {
     border-bottom: 0;
 }
 
+button.delete-task {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
 input:checked + p {
     text-decoration: line-through;
     text-decoration-color: black;
@@ -65,12 +75,12 @@ p {
     color: #00204a;
 }
 
-form {
+form.newTask {
     text-align: center;
     margin: 10px auto;
 }
 
-button {
+button.submit {
     min-height: 50px;
     width: 50px;
     border-radius: 50%;

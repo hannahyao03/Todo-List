@@ -5,16 +5,19 @@
 </div>
 
 <div class="wrapper">
-    <form class="item" method="post">
+    <form class="newTask" method="post">
         <input type="text" name="newTask" placeholder="Add a new task" autocomplete="off">
-        <button type="submit" name="submit">+</button>
+        <button class="submit" type="submit" name="submit">+</button>
     </form>
 
     <% for (let i = 0; i < newTasks.length; i++) { %>
-    <div class="task">
-        <input type="checkbox">
-        <p><%=newTasks[i]%></p>
-    </div>
+        <form action="/delete" method="post">
+            <div class="task">
+                <input type="checkbox">
+                <p><%=newTasks[i].name%></p>
+                <button class="delete-task" type="submit" name="delete">x</button>
+            </div>
+        </form>
     <% } %>  
 </div>
 
