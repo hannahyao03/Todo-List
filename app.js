@@ -54,7 +54,16 @@ app.post('/', (req, res) => {
 });
 
 app.post('/delete', (req, res) => {
-    console.log(req.body)
+    const taskToDelete = req.body.delete;
+    Task.findByIdAndDelete(taskToDelete, (error, deleteResult) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(`Successfully deleted : ${deleteResult}`);
+        }
+    });
+
+    res.redirect('/'); // Redirects to the home page to update display    
 });
 
 app.listen(port, () => {

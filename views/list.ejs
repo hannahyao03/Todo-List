@@ -15,7 +15,7 @@
             <div class="task">
                 <input type="checkbox">
                 <p><%=newTasks[i].name%></p>
-                <button class="delete-task" type="submit" name="delete">x</button>
+                <button class="delete-task" type="submit" name="delete" value="<%=newTasks[i]._id%>">x</button>
             </div>
         </form>
     <% } %>  
