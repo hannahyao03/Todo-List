@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const date = require(`${__dirname}/date.js`); // get the module date.js
 
 const app = express();
@@ -55,7 +56,7 @@ app.post("/", (req, res) => {
 });
 
 app.get("/:customListName", (req, res) => {
-    const listName = req.params.customListName;
+    const listName = _.capitalize(req.params.customListName);
 
     List.findOne({name: listName}, (error, result) => {
         if (error) {
