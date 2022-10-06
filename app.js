@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -15,8 +17,6 @@ const port = 3000;
 mongoose.connect("mongodb://localhost:27017/tasksDB");
 const taskSchema = new mongoose.Schema({
     name: String
-    // description: String,
-    // dueDate: Date
 });
 
 const Task = mongoose.model("Task", taskSchema);
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     // Display tasks in DB
     Task.find({}, (error, tasks) => {
         if (error) {
-            console.log(error)
+            console.log(`Error loading default page: ${error}`);
         } else {
             res.render('list', {listName: day, newTasks: tasks});
         }
@@ -59,7 +59,7 @@ app.get("/:customListName", (req, res) => {
 
     List.findOne({name: listName}, (error, result) => {
         if (error) {
-            console.log(`Error: ${error}`);
+            console.log(`Error loading ${listName}: ${error}`);
         } else {
             if(!result) {
                 // Add a new list if it does not exist
@@ -68,13 +68,13 @@ app.get("/:customListName", (req, res) => {
                     tasks: []
                 });
 
-                list.save();
+                list.save(); // Add to DB
 
                 res.redirect(`/${listName}`);
 
             } else {
                 // Display the pre-existing list with the same name
-                res.render("list", {listName: result.name, newTasks: result.tasks});
+                res.render('list', {listName: result.name, newTasks: result.tasks});
             }
         }
     });
@@ -87,9 +87,9 @@ app.post('/delete', (req, res) => {
     if (listName == date.getDate()) {
         Task.findByIdAndDelete(taskToDelete, (error, deleteResult) => {
             if (error) {
-                console.log(error);
+                console.log(`Error deleting task: ${error}`);
             } else {
-                console.log(`Successfully deleted : ${deleteResult}`);
+                console.log(`Successfully deleted: ${deleteResult}`);
             }
         });
 
@@ -102,6 +102,8 @@ app.post('/delete', (req, res) => {
             (error, result) => {
                 if (!error) {
                     res.redirect(`/${listName}`);
+                } else {
+                    console.log(`Error deleting from ${listName}: ${error}`);
                 }
             }
         );
@@ -120,20 +122,16 @@ app.post("/:customListName", (req, res) => {
 
         List.findOne({name: listName}, (error, result) => {
             if (error) {
-                console.log(`Error: ${error}`);
+                console.log(`Error loading ${listName}: ${error}`);
             } else {
                 result.tasks.push(task); // Add the task to the custom list
                 result.save();
-
-                res.redirect(`/${listName}`);
             }
-        })
+        });
+
+        res.redirect(`/${listName}`); 
     }
-    
-    
 });
-
-
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
